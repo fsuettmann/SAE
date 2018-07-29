@@ -18,6 +18,7 @@
 #' @description Beschreibung der Funktion
 #' @param x Beschreibung von \code{x}
 #' @param y Beschreibung von \code{y}
+#' @export yes
 #' @return Was die Funktion ausspuckt.
 #' @references
 #' @seealso

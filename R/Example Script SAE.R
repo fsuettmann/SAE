@@ -1,3 +1,16 @@
+#' @title Testscript
+#' @description Beschreibung der Funktion
+#' @param x Beschreibung von \code{x}
+#' @param y Beschreibung von \code{y}
+#' @export
+#' @return Was die Funktion ausspuckt.
+#' @references
+#' @seealso
+#' @keywords
+#' @examples
+
+
+
 #----------------- preliminary set up -----------------#
 
 # load required packages
