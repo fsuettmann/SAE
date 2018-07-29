@@ -1,11 +1,14 @@
 Package: SAE
 Type: Package
-Title: What the Package Does (Title Case)
+Title: This Package implements a Small Area Estimation approach from Elbers. et al blabla
 Version: 0.1.0
-Author: Who wrote it
+Author: N.B, F.S.
 Maintainer: The package maintainer <yourself@somewhere.net>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
+Imports: 
+Depends: 
+Suggests: 

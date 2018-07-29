@@ -13,6 +13,18 @@
 #   Check Package:             'Ctrl + Shift + E'
 #   Test Package:              'Ctrl + Shift + T'
 
+
+#' @title Titel der Funktion
+#' @description Beschreibung der Funktion
+#' @param x Beschreibung von \code{x}
+#' @param y Beschreibung von \code{y}
+#' @return Was die Funktion ausspuckt.
+#' @references
+#' @seealso
+#' @keywords
+#' @examples
+
+
 hello <- function() {
   print("Hello, world!")
 }
