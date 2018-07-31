@@ -4,7 +4,7 @@
 \alias{sae.inference.survey}
 \title{Titel der Funktion}
 \usage{
-sae.inference.survey(model, surveydata, location, id = c())
+sae.inference.survey(model, surveydata, location, unique_location)
 }
 \arguments{
 \item{x}{Beschreibung von \code{x}}

@@ -13,8 +13,7 @@
 #' @keywords
 #' @examples
 
-
-sae.inference.survey <- function(model, surveydata, location, id=c()){
+sae.inference.survey <- function(model, surveydata, location, unique_location){
   # model = relationship between your variable of interest and the explanatory variables
   # surveydata = data set used for the first step of the SAE approach
   # location = variable in the surveydata that identifies the location
@@ -23,39 +22,20 @@ sae.inference.survey <- function(model, surveydata, location, id=c()){
 
   #------------------- fit a OLS model based on the survey data set -----------------#
   model_fit <- lm(model, data = surveydata)
-
-  ###################################################################################
-  #----------------- combine residuals with the training data set -------------------#
-  # this serves to identify which residual belongs to which observation
-  # also we can now know in which cluster/region/location this residual was observed
-  # training <- cbind(training, e_res)
-  ####################################################################################
-
-  #instead make identification through an id?
-  #if(id == c()){
-  #  id <- seq.int(from = 1, to = nrow(surveydata))
-  #}
-
+  # da gibt es auch schnellere Alternativen meine ich
 
   #----------------------- calculate random location effects -------------------------#
-  # residuals can be written as
-  # regresson_residuals = location_effect + (regresson_residuals - location_effect)
-  # location effect is the average of the residuals of all observations that belong to
-  # one location.
+  location_effect <- calc.location.effect(regr_residuals = model_fit$residuals,
+                                          loc = location, unique_loc = unique_location)
 
-  # for every location, calculate the mean
-  location_effect <- as.vector(by(data = residuals(model_fit), INDICES = location, FUN = mean))
-
-  # include the id of the location to make sure the location effects are identifiable
-  location_effect <- as.data.frame(cbind(location_effect, location = unique(location)))
-  #colnames(location_effect)[2] <- "location"
-
+head(location_effect)
+head(residuals)
   # add location to regression residuals so they can be merged with the location effects
-  residuals <- as.data.frame(cbind(residuals = residuals(model_fit), location))
-  #colnames(residuals)[2] <- "location"
+  residuals <- as.data.frame(cbind(residuals = model_fit$residuals, location))
 
   # bring together residuals and location effects
   errorterm <- merge(location_effect, residuals, by = "location")
+  # merge using http://www.cplusplus.com/reference/algorithm/merge/ ?
 
   # calculate residuals from regression residuals and location effects
   errorterm$residuals <- errorterm$residuals - errorterm$location_effect
@@ -67,7 +47,7 @@ sae.inference.survey <- function(model, surveydata, location, id=c()){
   # 2) the estimated x'beta from the regression model
 
   inference_survey <- list(errorterms = errorterm,
-                           xbeta = model_fit$coefficients)
+                           betas = model_fit$coefficients,
+                           location_effect = location_effect)
 
 }
-
