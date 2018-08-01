@@ -17,3 +17,4 @@ calc.location.effect <- function(regr_residuals, loc, unique_loc){
 
 }
 
+

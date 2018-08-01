@@ -13,6 +13,9 @@
 #' @keywords
 #' @examples
 
+
+
+
 sae.inference.survey <- function(model, surveydata, location, unique_location){
   # model = relationship between your variable of interest and the explanatory variables
   # surveydata = data set used for the first step of the SAE approach
@@ -25,13 +28,12 @@ sae.inference.survey <- function(model, surveydata, location, unique_location){
   # da gibt es auch schnellere Alternativen meine ich
 
   #----------------------- calculate random location effects -------------------------#
-  location_effect <- calc.location.effect(regr_residuals = model_fit$residuals,
+  location_effect <- calc.location.effect(regr_residuals = residuals(model_fit),
                                           loc = location, unique_loc = unique_location)
 
-head(location_effect)
-head(residuals)
+
   # add location to regression residuals so they can be merged with the location effects
-  residuals <- as.data.frame(cbind(residuals = model_fit$residuals, location))
+  residuals <- as.data.frame(cbind(residuals = residuals(model_fit), location))
 
   # bring together residuals and location effects
   errorterm <- merge(location_effect, residuals, by = "location")
@@ -48,6 +50,7 @@ head(residuals)
 
   inference_survey <- list(errorterms = errorterm,
                            betas = model_fit$coefficients,
-                           location_effect = location_effect)
+                           location_effect = location_effect,
+                           model_fit_surv = model_fit)
 
 }

@@ -10,9 +10,7 @@
 #' @examples
 
 
-
-
-sae <- function(model, surveydata, censusdata, location_survey, n_boot = 3, welfare.function = identity){
+sae <- function(model, surveydata, censusdata, location_survey, n_boot = 3, welfare.function){
 
   # ggf. alle Beobachtungen nach Location sortieren? Das ermöglicht den komplizierten Residualbootstrap effizient
 
@@ -33,18 +31,29 @@ sae <- function(model, surveydata, censusdata, location_survey, n_boot = 3, welf
                                            location = location,
                                            unique_location = unique_location)
 
+  if(!missing(welfare.function)){
+    sae_inference_census <- sae.inference.census(model = model,
+                                                 censusdata = censusdata,
+                                                 location = location,
+                                                 n_obs_census = n_obs_census,
+                                                 n_obs_survey = n_obs_survey,
+                                                 n_locations = n_locations,
+                                                 n_boot = n_boot,
+                                                 model_fit_survey = inference_survey$model_fit_surv,
+                                                 inference_survey = inference_survey)
 
-  sae_inference_census <- sae.inference.census(model = model,
-                                               censusdata = censusdata,
-                                               location = location,
-                                               n_obs_census = n_obs_census,
-                                               n_obs_survey = n_obs_survey,
-                                               n_locations = n_locations,
-                                               welfare.function = welfare.function,
-                                               n_boot = n_boot,
-                                               inference_survey = inference_survey)
-
-
+  } else {
+    sae_inference_census <- sae.inference.census(model = model,
+                                                 censusdata = censusdata,
+                                                 location = location,
+                                                 n_obs_census = n_obs_census,
+                                                 n_obs_survey = n_obs_survey,
+                                                 n_locations = n_locations,
+                                                 n_boot = n_boot,
+                                                 model_fit_survey = inference_survey$model_fit_surv,
+                                                 welfare.function = welfare.function,
+                                                 inference_survey = inference_survey)
+  }
 
 
 

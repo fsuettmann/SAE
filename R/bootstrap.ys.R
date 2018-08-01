@@ -46,7 +46,7 @@ bootstrap.y <- function(model1, model_fit1, censusdata1, n_boot1, n_obs){
   # N: vielleicht ist rapply nützlich?
 
   y_bootstrap <- matrix(NA, nrow = n_obs, ncol = n_boot1)
-  xbeta <- predict(model_fit, newdata = censusdata1)
+  xbeta <- predict(model_fit1, newdata = censusdata1)
   for (i in 1:n_obs){
 
     y_bootstrap[i,] <- rnorm(n = n_boot1, mean = xbeta[i], sd = sd_y[i])

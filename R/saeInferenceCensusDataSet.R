@@ -20,6 +20,7 @@ sae.inference.census <- function(model,
                                  n_locations,
                                  welfare.function,
                                  n_boot,
+                                 model_fit_survey,
                                  inference_survey){
 
 
@@ -42,7 +43,7 @@ sae.inference.census <- function(model,
                                        residuals = inference_survey$errorterm$residuals)
 
   #------------------ make bootstrap samples for the x'betas ------------------------#
-  y_hat_bootstrap <- bootstrap.y(model1 = model, model_fit1 = model_fit, censusdata1 = censusdata,
+  y_hat_bootstrap <- bootstrap.y(model1 = model, model_fit1 = model_fit_survey, censusdata1 = censusdata,
                                  n_boot1 = n_boot, n_obs = n_obs_census)
 
 
@@ -51,15 +52,21 @@ sae.inference.census <- function(model,
 
 
   #---------------- calculate Welfare measure based on y_bootstrap ------------------#
-  welfare_bootstrap <- apply(X = y_bootstrap, MARGIN = 1:2, FUN = welfare.function)
-  # alternative: welfare_bootstrap <- fun(welfare_bootstrap). ist das das gleiche?
+  if(!missing(welfare.function)){
+    welfare_bootstrap <- apply(X = y_bootstrap, MARGIN = 1:2, FUN = welfare.function)
+    # alternative: welfare_bootstrap <- fun(welfare_bootstrap). ist das das gleiche?
 
-  #-------------- combine bootstrap welfare estimates to one estimate ---------------#
-  welfare_predicted <- apply(X = welfare_bootstrap, MARGIN = 1, FUN = mean)
+    #-------------- combine bootstrap welfare estimates to one estimate ---------------#
+    welfare_predicted <- apply(X = welfare_bootstrap, MARGIN = 1, FUN = mean)
+
+  } else {
+    y_predicted <- apply(X = y_bootstrap, MARGIN = 1, FUN = mean)
+  }
+
 
 
 }
-warnings()
+
 
 
 
