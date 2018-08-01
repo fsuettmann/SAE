@@ -10,6 +10,7 @@
 #' @examples
 
 
+
 sae <- function(model, surveydata, censusdata, location_survey, n_boot = 3, welfare.function){
   # kriegt man das hin, location_survey auch einfach als Variable zu spezifizieren, die R sich
   # dann aus dem Datensatz nimmt?
@@ -17,7 +18,7 @@ sae <- function(model, surveydata, censusdata, location_survey, n_boot = 3, welf
   # ggf. alle Beobachtungen nach Location sortieren? Das ermöglicht den komplizierten Residualbootstrap effizient
 
   # convert locations of surveydata into simple integers. Location of census is ignored
-  location <- location.identifier(location = location_survey)
+  location <- location.simplifier(location = location_survey)
 
   # den Schritt braucht man eigentlich nur, wenn die Obs nicht nach Location sortiert sind.
   unique_location <- unique(location)
