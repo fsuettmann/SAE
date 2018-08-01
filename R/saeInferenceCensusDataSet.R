@@ -33,7 +33,6 @@ sae.inference.census <- function(model,
   #-------------- draw random location effects bootstrap sample ---------------------#
   random_location_boot <- bootstrap.location(location_effect = inference_survey$location_effect,
                                              n_loc = n_locations,
-                                             n_obs_surv = n_obs_survey,
                                              n_obs_cens = n_obs_census,
                                              n_bootstr = n_boot)
 

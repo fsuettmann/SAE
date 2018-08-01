@@ -11,6 +11,8 @@
 
 
 sae <- function(model, surveydata, censusdata, location_survey, n_boot = 3, welfare.function){
+  # kriegt man das hin, location_survey auch einfach als Variable zu spezifizieren, die R sich
+  # dann aus dem Datensatz nimmt?
 
   # ggf. alle Beobachtungen nach Location sortieren? Das ermöglicht den komplizierten Residualbootstrap effizient
 

@@ -1,5 +1,5 @@
 
-bootstrap.location <- function(location_effect, n_loc, n_obs_surv, n_obs_cens, n_bootstr){
+bootstrap.location <- function(location_effect, n_loc, n_obs_cens, n_bootstr){
 
   #--- for every hh in the census draw n_boot draw (indexes for) location effects ---#
   helper_index <- sample(x = 1:n_loc, size = n_bootstr*n_obs_cens, replace = T)
