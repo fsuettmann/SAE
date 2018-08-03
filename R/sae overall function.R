@@ -11,17 +11,25 @@
 
 
 
-sae <- function(model, surveydata, censusdata, location_survey, n_boot = 3, welfare.function){
+sae <- function(model, surveydata, censusdata, location_survey, mResponse, n_boot = 3, welfare.function){
   # kriegt man das hin, location_survey auch einfach als Variable zu spezifizieren, die R sich
   # dann aus dem Datensatz nimmt?
 
-  # ggf. alle Beobachtungen nach Location sortieren? Das ermöglicht den komplizierten Residualbootstrap effizient
+  # The following function computes means from the census for the regression of the survey dataset
+  if(!missing(mResponse)){
+    surveydata <- mean.for.regression(mResponse, censusdata, surveydata, model)
+  }
+
+
+  ### ggf. alle Beobachtungen nach Location sortieren? Das ermöglicht den
+  # komplizierten Residualbootstrap effizient
 
   # convert locations of surveydata into simple integers. Location of census is ignored
   location <- location.simplifier(location = location_survey)
 
-  # den Schritt braucht man eigentlich nur, wenn die Obs nicht nach Location sortiert sind.
+  ### den Schritt braucht man eigentlich nur, wenn die Obs nicht nach Location sortiert sind.
   unique_location <- unique(location)
+
 
   # save some numbers for all other functions to use N: macht das Sinn hier?
   n_obs_census <- nrow(censusdata)
