@@ -33,6 +33,7 @@ sae <- function(model, surveydata, censusdata, location_survey, mResponse, n_boo
 
 
   # The following function computes means from the census for the regression of the survey dataset
+  # and adds them to the surveydataset to be included in the later regression
   if(!missing(mResponse)){
     list_model <- mean.for.regression(mResponse, censusdata, surveydata, model)
     surveydata <- as.data.frame(list_model[[2]])

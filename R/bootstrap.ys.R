@@ -11,19 +11,22 @@
 
 
 
+all.vars(log(y) ~ x + z + d)
 
-
-
-# bootstrap predicted ysW
+# bootstrap predicted ys
 
 bootstrap.y <- function(model1, model_fit1, censusdata1, n_boot1, n_obs){
 
-  # extract variables that are used in the model
-  model.vars <- unlist(strsplit(model1, split="~")) # splits responses from the Y
-  model.vars <- gsub(pattern = " ", replacement="" , model.vars[2])
-  # removes all the blanks
-  vars <- unlist(strsplit(model.vars, split="\\+"))
-  # vars contains all the variables used in the model also the ones with means
+  # # Variante 1
+  # # extract variables that are used in the model
+  # model.vars <- unlist(strsplit(model1, split="~")) # splits responses from the Y
+  # model.vars <- gsub(pattern = " ", replacement="" , model.vars[2])
+  # # removes all the blanks
+  # vars <- unlist(strsplit(model.vars, split="\\+"))
+  # # vars contains all the variables used in the model also the ones with means
+
+  # Variante 2
+  vars <- all.vars(model1)[-1] # wir können ja nochmal gucken, welche Variante richtig ist
 
   # subset the censusdata set so that all explanatory variables in the model remain.
   # calculuate x'beta. This makes only sense if the model is a linear model
