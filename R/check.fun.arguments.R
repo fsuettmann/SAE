@@ -8,5 +8,6 @@ check.fun.arguments <- function(model, surveydata, censusdata, location_survey,
   if(missing(censusdata)) stop("Data frame with the censusdata is missing")
   if(missing(location_survey)) stop("A location variable of vector has to be supplied")
   if(!is.data.frame(surveydata)) stop("The input data has to be a data frame")
+  #N: man kann ja hier auch eine Matrix als Data.frame konvertieren.
   if(!is.data.frame(censusdata)) stop("The input data has to be a data frame")
 }

@@ -14,7 +14,7 @@
 
 
 
-# bootstrap predicted ys
+# bootstrap predicted ysW
 
 bootstrap.y <- function(model1, model_fit1, censusdata1, n_boot1, n_obs){
 
