@@ -28,7 +28,7 @@ sae <- function(model, surveydata, censusdata, location_survey, mResponse, n_boo
   # komplizierten Residualbootstrap effizient
 
   # convert locations of surveydata into simple integers. Location of census is ignored
-  if(missing(location.survey)) stop("A variable of vector for location in the survey data has to be specified")
+  # if(missing(location.survey)) stop("A variable or vector for location in the survey data has to be specified")
   location <- location.simplifier(surv_data = surveydata ,location = location_survey)
 
   ### den Schritt braucht man eigentlich nur, wenn die Obs nicht nach Location sortiert sind.
