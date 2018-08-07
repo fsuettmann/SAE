@@ -11,7 +11,6 @@
 
 
 
-all.vars(log(y) ~ x + z + d)
 
 # bootstrap predicted ys
 
@@ -23,7 +22,6 @@ bootstrap.y <- function(model1, model_fit1, censusdata1, n_boot1, n_obs){
   # model.vars <- gsub(pattern = " ", replacement="" , model.vars[2])
   # # removes all the blanks
   # vars <- unlist(strsplit(model.vars, split="\\+"))
-  # # vars contains all the variables used in the model also the ones with means
 
   # Variante 2
   vars <- all.vars(model1)[-1] # wir können ja nochmal gucken, welche Variante richtig ist
@@ -31,7 +29,7 @@ bootstrap.y <- function(model1, model_fit1, censusdata1, n_boot1, n_obs){
   # subset the censusdata set so that all explanatory variables in the model remain.
   # calculuate x'beta. This makes only sense if the model is a linear model
   x <- as.matrix(cbind(rep(1, times = n_obs), subset(censusdata1, select = vars)))
-
+  tx <- t(x)
 
   # extract the variances of the coefficients beta_hat estimated in the survey
   # caluclate var(beta_hat) (formula would be: sigma^2 * (X'X)^-1)
@@ -41,7 +39,7 @@ bootstrap.y <- function(model1, model_fit1, censusdata1, n_boot1, n_obs){
   # eventuell Matrix außerhalb der Loop transponieren
   var_y <- rep(NA, n_obs)
   for(i in 1:n_obs){
-    var_y[i] <- t(x[i,]) %*% cov_coefficients %*% x[i,]
+    var_y[i] <- tx[i,] %*% cov_coefficients %*% x[i,]
   }
   sd_y <- sqrt(var_y)
 

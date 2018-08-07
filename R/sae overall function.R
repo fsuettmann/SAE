@@ -14,11 +14,15 @@
 
 
 
+
 sae <- function(model, surveydata, censusdata, location_survey, mResponse, n_boot = 50, welfare.function){
   # the following functions checks if all the arguments of the overall
   # function are correctly specified
   check.fun.arguments(model, surveydata, censusdata, location_survey,
                       mResponse, n_boot, welfare.function)
+
+  n_obs_census <- nrow(censusdata)
+  n_obs_survey <- nrow(surveydata)
 
   # convert locations of surveydata into simple integers. Location of census is ignored
   location <- location.simplifier(surv_data = surveydata ,location = location_survey, n_obs_survey1 = n_obs_survey)
@@ -26,9 +30,6 @@ sae <- function(model, surveydata, censusdata, location_survey, mResponse, n_boo
   ### den Schritt braucht man eigentlich nur, wenn die Obs nicht nach Location sortiert sind.
   unique_location <- unique(location)
 
-  # save some numbers for all other functions to use N: macht das Sinn hier?
-  n_obs_census <- nrow(censusdata)
-  n_obs_survey <- nrow(surveydata)
   n_locations <- length(unique_location)
 
 
