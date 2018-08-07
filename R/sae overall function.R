@@ -17,7 +17,10 @@ sae <- function(model, surveydata, censusdata, location_survey, mResponse, n_boo
 
   # The following function computes means from the census for the regression of the survey dataset
   if(!missing(mResponse)){
-    surveydata <- mean.for.regression(mResponse, censusdata, surveydata, model)
+    list_model <- mean.for.regression(mResponse, censusdata, surveydata, model)
+    surveydata <- as.data.frame(list_model[[2]])
+    model <- as.vector(list_model[[1]])
+    rm(list_model)
   }
 
 
@@ -25,7 +28,8 @@ sae <- function(model, surveydata, censusdata, location_survey, mResponse, n_boo
   # komplizierten Residualbootstrap effizient
 
   # convert locations of surveydata into simple integers. Location of census is ignored
-  location <- location.simplifier(location = location_survey)
+  if(missing(location.survey)) stop("A variable of vector for location in the survey data has to be specified")
+  location <- location.simplifier(surv_data = surveydata ,location = location_survey)
 
   ### den Schritt braucht man eigentlich nur, wenn die Obs nicht nach Location sortiert sind.
   unique_location <- unique(location)
@@ -51,6 +55,7 @@ sae <- function(model, surveydata, censusdata, location_survey, mResponse, n_boo
                                                  n_locations = n_locations,
                                                  n_boot = n_boot,
                                                  model_fit_survey = inference_survey$model_fit_surv,
+                                                 welfare.function = welfare.function,
                                                  inference_survey = inference_survey)
 
   } else {
@@ -62,7 +67,6 @@ sae <- function(model, surveydata, censusdata, location_survey, mResponse, n_boo
                                                  n_locations = n_locations,
                                                  n_boot = n_boot,
                                                  model_fit_survey = inference_survey$model_fit_surv,
-                                                 welfare.function = welfare.function,
                                                  inference_survey = inference_survey)
   }
 

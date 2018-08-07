@@ -4,8 +4,9 @@
 \alias{sae.inference.census}
 \title{SAE prediction on census}
 \usage{
-sae.inference.census(model, censusdata, location, n_obs_census, n_obs_survey,
-  n_locations, welfare.function, n_boot, inference_survey)
+sae.inference.census(model, censusdata, location, n_obs_census,
+  n_obs_survey, n_locations, welfare.function, n_boot, model_fit_survey,
+  inference_survey)
 }
 \arguments{
 \item{x}{Beschreibung von \code{x}}
