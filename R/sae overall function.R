@@ -11,9 +11,11 @@
 
 
 
-sae <- function(model, surveydata, censusdata, location_survey, mResponse, n_boot = 3, welfare.function){
-  # kriegt man das hin, location_survey auch einfach als Variable zu spezifizieren, die R sich
-  # dann aus dem Datensatz nimmt?
+sae <- function(model, surveydata, censusdata, location_survey, mResponse, n_boot = 50, welfare.function){
+  # the following functions checks if all the arguments of the overall
+  # function are correctly specified
+  check.fun.arguments(model, surveydata, censusdata, location_survey,
+                      mResponse, n_boot, welfare.function)
 
   # The following function computes means from the census for the regression of the survey dataset
   if(!missing(mResponse)){
@@ -28,7 +30,7 @@ sae <- function(model, surveydata, censusdata, location_survey, mResponse, n_boo
   # komplizierten Residualbootstrap effizient
 
   # convert locations of surveydata into simple integers. Location of census is ignored
-  if(missing(location.survey)) stop("A variable of vector for location in the survey data has to be specified")
+  # if(missing(location.survey)) stop("A variable or vector for location in the survey data has to be specified")
   location <- location.simplifier(surv_data = surveydata ,location = location_survey)
 
   ### den Schritt braucht man eigentlich nur, wenn die Obs nicht nach Location sortiert sind.

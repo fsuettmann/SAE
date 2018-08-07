@@ -11,10 +11,17 @@
 #################################
 
 mean.for.regression <- function(mResponse, censusdata, surveydata, model){
-  model.split <- unlist(strsplit(mResponse, split="~")) # splits responses from the Y
-  model.split <- gsub(pattern = " ", replacement="" , model.split[2])
-  # removes all the blanks
-  model.split <- unlist(strsplit(model.split, split="\\+"))
+  if(mResponse == "all"){ # instead of "all" I want this to be a simpe dot (.)
+    # like in the regression as a placeholder for all varaibles except y
+    model.split <- unlist(strsplit(mResponse, split="~")) # splits responses from the Y
+    model.split <- gsub(pattern = " ", replacement="" , model.split[2])
+    # removes all the blanks
+    model.split <- unlist(strsplit(model.split, split="\\+"))
+  } else {
+    model.split <- gsub(pattern = " ", replacement="" , mResponse)
+    # removes all the blanks
+    model.split <- unlist(strsplit(model.split, split="\\+"))
+  }
   # creates vector based in individual vars
 
 

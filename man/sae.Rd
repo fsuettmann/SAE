@@ -5,7 +5,7 @@
 \title{SAE main function}
 \usage{
 sae(model, surveydata, censusdata, location_survey, mResponse,
-  n_boot = 3, welfare.function)
+  n_boot = 50, welfare.function)
 }
 \arguments{
 \item{x}{Beschreibung von \code{x}}

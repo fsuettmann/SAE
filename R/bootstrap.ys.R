@@ -19,12 +19,15 @@
 bootstrap.y <- function(model1, model_fit1, censusdata1, n_boot1, n_obs){
 
   # extract variables that are used in the model
-  vars <- all.vars(model1)
-  # vor allem das vars[-1]
+  model.vars <- unlist(strsplit(model1, split="~")) # splits responses from the Y
+  model.vars <- gsub(pattern = " ", replacement="" , model.vars[2])
+  # removes all the blanks
+  vars <- unlist(strsplit(model.vars, split="\\+"))
+  # vars contains all the variables used in the model also the ones with means
 
   # subset the censusdata set so that all explanatory variables in the model remain.
   # calculuate x'beta. This makes only sense if the model is a linear model
-  x <- as.matrix(cbind(rep(1, times = n_obs), subset(censusdata1, select = vars[-1])))
+  x <- as.matrix(cbind(rep(1, times = n_obs), subset(censusdata1, select = vars)))
 
 
   # extract the variances of the coefficients beta_hat estimated in the survey
