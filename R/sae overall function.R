@@ -11,9 +11,11 @@
 
 
 
-sae <- function(model, surveydata, censusdata, location_survey, mResponse, n_boot = 3, welfare.function){
-  # kriegt man das hin, location_survey auch einfach als Variable zu spezifizieren, die R sich
-  # dann aus dem Datensatz nimmt?
+sae <- function(model, surveydata, censusdata, location_survey, mResponse, n_boot = 50, welfare.function){
+  # the following functions checks if all the arguments of the overall
+  # function are correctly specified
+  check.fun.arguments(model, surveydata, censusdata, location_survey,
+                      mResponse, n_boot, welfare.function)
 
   # The following function computes means from the census for the regression of the survey dataset
   if(!missing(mResponse)){
