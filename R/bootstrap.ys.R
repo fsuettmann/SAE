@@ -20,7 +20,6 @@ bootstrap.y <- function(model1, model_fit1, censusdata1, n_boot1, n_obs){
 
   # extract variables that are used in the model
   vars <- all.vars(model1)
-  # F: funktioniert diese Formel immer, egeal was man für eine Funktion reinpackt?
   # vor allem das vars[-1]
 
   # subset the censusdata set so that all explanatory variables in the model remain.
@@ -29,10 +28,8 @@ bootstrap.y <- function(model1, model_fit1, censusdata1, n_boot1, n_obs){
 
 
   # extract the variances of the coefficients beta_hat estimated in the survey
-  summary_fit <- summary(model_fit1)
-
   # caluclate var(beta_hat) (formula would be: sigma^2 * (X'X)^-1)
-  cov_coefficients <- vcov(summary_fit)
+  cov_coefficients <- vcov(summary(model_fit1))
 
   # for every predicted y_hat, calculate std of y_hat and put it in a vector
   # eventuell Matrix außerhalb der Loop transponieren
@@ -47,9 +44,9 @@ bootstrap.y <- function(model1, model_fit1, censusdata1, n_boot1, n_obs){
   # N: wir müssen mal gucken, ob es schneller geht, aus einer MVNORM zu ziehen, oder das per
   # Schleife zu machen.
   # N: vielleicht ist rapply nützlich?
+  xbeta <- predict(model_fit1, newdata = censusdata1)
 
   y_bootstrap <- matrix(NA, nrow = n_obs, ncol = n_boot1)
-  xbeta <- predict(model_fit1, newdata = censusdata1)
   for (i in 1:n_obs){
 
     y_bootstrap[i,] <- rnorm(n = n_boot1, mean = xbeta[i], sd = sd_y[i])

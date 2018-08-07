@@ -1,4 +1,9 @@
 
+# This is the loop for the residuals, it can be implemented in two different ways,
+# either the first, completely disregarding the location drawn
+# (F: I think this is oversimplifying it too much) and the second where depending on the location
+# drawn a random residual from that cluster is drawn
+
 
 
 bootstrap.residuals <- function(n_boot1, sample_size, num_residuals, residuals){

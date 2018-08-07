@@ -4,8 +4,8 @@
 \alias{sae}
 \title{SAE main function}
 \usage{
-sae(model, surveydata, censusdata, location_survey, n_boot = 3,
-  welfare.function = identity)
+sae(model, surveydata, censusdata, location_survey, mResponse,
+  n_boot = 3, welfare.function)
 }
 \arguments{
 \item{x}{Beschreibung von \code{x}}

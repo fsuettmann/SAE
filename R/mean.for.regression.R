@@ -43,7 +43,7 @@ mean.for.regression <- function(mResponse, censusdata, surveydata, model){
   #######------------------------------------------------########
 
   # the last step is now to recreate tha part that gets pasted into the model
-  model <<- paste( model , paste(model.split, collapse = " + "), sep = " + ")
+  model <- paste( model , paste(model.split, collapse = " + "), sep = " + ")
   # we should check if this hyperparametrisation works!!
-  return(surveydata)
+  return(list(model, surveydata))
 }

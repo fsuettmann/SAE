@@ -5,7 +5,7 @@ bootstrap.location <- function(location_effect, n_loc, n_obs_cens, n_bootstr){
   helper_index <- sample(x = 1:n_loc, size = n_bootstr*n_obs_cens, replace = T)
 
   #----- use the indexes to make a matrix with draws from the location effects ------#
-  matrix(location_effect[helper_index,1], ncol = n_bootstr)
+  return(matrix(location_effect[helper_index,1], ncol = n_bootstr))
   # the ,1 serves to only give us the effect, not the associated location (not needed
   # for simple residual bootstrapping)
 
