@@ -52,7 +52,9 @@ sae.inference.census <- function(model,
 
   #---------------- calculate Welfare measure based on y_bootstrap ------------------#
   if(!missing(welfare.function)){
-    welfare_bootstrap <- apply(X = y_bootstrap, MARGIN = 1:2, FUN = welfare.function)
+    welfare_bootstrap <- welfare.function(y_bootstrap)
+    #welfare_bootstrap <- apply(X = y_bootstrap, MARGIN = 1:2, FUN = welfare.function)
+
     # alternative: welfare_bootstrap <- fun(welfare_bootstrap). ist das das gleiche?
 
     #-------------- combine bootstrap welfare estimates to one estimate ---------------#

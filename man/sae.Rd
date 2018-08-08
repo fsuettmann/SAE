@@ -8,7 +8,8 @@ sae(model, surveydata, censusdata, location_survey, mResponse,
   n_boot = 50, welfare.function)
 }
 \arguments{
-\item{x}{Beschreibung von \code{x}}
+\item{model}{a model that is specified for the relationship betwenn
+the response varibale and the regressors. Model must be a linear model that can be processed by \code{lm()}}
 
 \item{y}{Beschreibung von \code{y}}
 }
